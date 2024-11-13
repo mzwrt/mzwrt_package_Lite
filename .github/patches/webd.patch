@@ -1,13 +1,16 @@
-@@ -75,10 +75,13 @@ TARGET_BOARD:=musl.rockchip-armv8
+--- a/webd/Makefile
++++ b/webd/Makefile
+@@ -75,6 +75,8 @@ ifeq ($(BOARD),rockchip)
+	endif
 	ifeq ($(BOARD),rockchip)
 		TARGET_BOARD:=musl.rockchip-armv8
 	endif
 +	ifeq ($(BOARD),mediatek)
 +		TARGET_BOARD:=musl.rockchip-armv8
 +	endif
-endif
+ endif
 
-@@ -80,7 +80,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(TARGET_ARCH)-openwrt-linux-$(TARGET_BOARD).tar.gz
+@@ -81,7 +81,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(TARGET_ARCH)-openwrt-linux-$(TARGET_BOARD).tar.gz
  endif
  
  PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(TARGET_ARCH)-openwrt-linux-$(TARGET_BOARD).tar.gz
