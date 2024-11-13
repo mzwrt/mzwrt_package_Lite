@@ -1,6 +1,6 @@
 --- a/webd/Makefile
 +++ b/webd/Makefile
-@@ -75,6 +75,8 @@ ifeq ($(BOARD),rockchip)
+@@ -76,6 +76,8 @@ ifeq ($(BOARD),rockchip)
 	endif
 	ifeq ($(BOARD),rockchip)
 		TARGET_BOARD:=musl.rockchip-armv8
