@@ -183,9 +183,10 @@ libs/luci-lib-fs
 git_sparse_clone openwrt-23.05 "https://github.com/openwrt/packages" "22packages" \
 utils/cgroupfs-mount utils/coremark utils/watchcat utils/dockerd net/nginx net/uwsgi net/ddns-scripts \
 net/ariang admin/netdata net/transmission-web-control net/rp-pppoe net/tailscale
-git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" \
-package/base-files package/network/config/firewall4 package/network/config/firewall package/system/opkg package/network/services/ppp \
-package/network/services/dnsmasq package/libs/openssl
+
+#git_sparse_clone openwrt-23.05 "https://github.com/openwrt/openwrt" "openwrt" \
+#package/base-files package/network/config/firewall4 package/network/config/firewall package/system/opkg package/network/services/ppp \
+#package/network/services/dnsmasq package/libs/openssl
 
 git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/sub-web net/dnsproxy net/haproxy net/cdnspeedtest \
 net/uugamebooster net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gowebdav net/udp2raw \
