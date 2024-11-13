@@ -74,13 +74,11 @@ ifeq ($(ARCH),aarch64)
 	endif
 	ifeq ($(BOARD),rockchip)
 		TARGET_BOARD:=musl.rockchip-armv8
-	ifeq ($(BOARD),mediatek)
-		TARGET_BOARD:=musl.rockchip-armv8
 	endif
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(TARGET_ARCH)-openwrt-linux-$(TARGET_BOARD).tar.gz
-PKG_SOURCE_URL:=https://webd.cf/webd/webd_dl/$(PKG_VERSION)/
+PKG_SOURCE_URL:=https://webd.cf/webd/$(PKG_VERSION)/
 PKG_HASH:=skip
 
 UNTAR_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
