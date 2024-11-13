@@ -4,6 +4,7 @@
 	endif
 	ifeq ($(BOARD),rockchip)
 		TARGET_BOARD:=musl.rockchip-armv8
+	endif
 +	ifeq ($(BOARD),mediatek)
 +		TARGET_BOARD:=musl.rockchip-armv8
 	endif
