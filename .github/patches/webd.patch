@@ -10,7 +10,7 @@
 +	endif
  endif
 
-@@ -80,7 +80,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(TARGET_ARCH)-openwrt-linux-$(TARGET_BOARD).tar.gz
+@@ -81,7 +81,7 @@
  endif
  
  PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(TARGET_ARCH)-openwrt-linux-$(TARGET_BOARD).tar.gz
