@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pppd/pppd.h"
+#include <stdint.h>
 typedef unsigned char byte;
 //TODO : change the version here
 char pppd_version[] = PPPOE_VER;
