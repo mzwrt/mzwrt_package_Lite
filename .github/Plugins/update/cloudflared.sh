@@ -41,3 +41,5 @@ grep -E "PKG_VERSION|PKG_HASH|PKG_SOURCE_URL" feeds/packages/net/cloudflared/Mak
 rm -f "/tmp/cloudflared-${cloudflared[version]}.tar.gz"
 
 echo "更新完毕！"
+
+exit 0
