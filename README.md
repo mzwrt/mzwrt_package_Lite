@@ -14,6 +14,9 @@
 #### 补丁应用
 点击此链接[patch](https://github.com/mzwrt/mzwrt_package/wiki/patch)有详细解释，补丁是使用lean的lede进行编写的，默认支持所有openwrt主分支和其他分支
 
+#### 错误披露
+点击此链接[error](https://github.com/mzwrt/mzwrt_package/wiki/error)查看错误信息，里面有详细的错误信息和大概解决办法,错误并不全面，其他问题请自行解决，谢谢
+
 
 #### 感谢
 
