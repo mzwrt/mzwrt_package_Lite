@@ -1,4 +1,8 @@
 #!/bin/bash
+#=================================================
+# MZwrt script
+# https://github.com/mzwrt
+#=================================================
 
 # 目标Makefile文件路径
 NEXTDNS_MAKEFILE_PATH="feeds/packages/net/nextdns/Makefile"
