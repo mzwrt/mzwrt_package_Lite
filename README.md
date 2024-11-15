@@ -15,7 +15,7 @@
 ```
 wget https://raw.githubusercontent.com/mzwrt/mzwrt_package/refs/heads/main/.github/patches/lean-lede.sh && bash lean-lede.sh -y && rm -rf lean-lede.sh
 ```
-直接在lean的lede根目录执行就可以（lede目录里面执行）只要没有报错信息就是可以正常编译，有报错信息请提交issues带上报错信息提交
+直接在openwrt根目录执行就可以（lede目录）只要没有报错信息就是可以正常编译，有报错信息请提交issues带上报错信息提交
 
 <br>
 
