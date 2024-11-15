@@ -155,7 +155,7 @@ git clone --depth 1 https://github.com/Carseason/openwrt-app-actions Carseason &
 git clone --depth 1 https://github.com/Akimio521/luci-app-gecoosac
 git clone --depth 1 https://github.com/shadowsocks/luci-app-shadowsocks
 git clone --depth 1 https://github.com/shadowsocks/openwrt-shadowsocks && mv -n openwrt-shadowsocks shadowsocks-libev
-git clone --depth 1 https://github.com/4IceG/luci-app-irqbalance && mv -n luci-app-irqbalance/*-irqbalance ./ 
+git clone --depth 1 https://github.com/4IceG/luci-app-irqbalance luciappirqbalance && mv -n luciappirqbalance/luci-app-irqbalance ./ ;rm -rf luciappirqbalance
 
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-ipkg
 svn export https://github.com/x-wrt/packages/trunk/net/nft-qos
