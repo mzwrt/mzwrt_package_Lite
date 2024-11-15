@@ -29,3 +29,5 @@ sed -i "s/^PKG_VERSION:=.*/PKG_VERSION:=${netmaker_LATEST_TAG}/" feeds/mzwrt_pac
 sed -i "s/^PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=${netmaker_LATEST_COMMIT_HASH}/" feeds/mzwrt_package/netmaker/Makefile
 
 echo "Makefile 已成功更新为最新版本：$netmaker_LATEST_TAG"
+
+exit 0
