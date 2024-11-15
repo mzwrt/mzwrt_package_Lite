@@ -153,18 +153,19 @@ git clone --depth 1 https://github.com/Carseason/openwrt-packages Carseason && m
 git clone --depth 1 https://github.com/Carseason/openwrt-themedog && mv -n openwrt-themedog/luci/* ./;rm -rf openwrt-themedog
 git clone --depth 1 https://github.com/Carseason/openwrt-app-actions Carseason && mv -n Carseason/applications/* ./;rm -rf Carseason
 git clone --depth 1 https://github.com/Akimio521/luci-app-gecoosac
+git clone --depth 1 https://github.com/shadowsocks/luci-app-shadowsocks
+git clone --depth 1 https://github.com/shadowsocks/openwrt-shadowsocks && mv -n openwrt-shadowsocks shadowsocks-libev
+git clone --depth 1 https://github.com/4IceG/luci-app-irqbalance && mv -n luci-app-irqbalance/*-irqbalance ./ 
 
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-ipkg
 svn export https://github.com/x-wrt/packages/trunk/net/nft-qos
 svn export https://github.com/x-wrt/luci/trunk/applications/luci-app-nft-qos
 svn export https://github.com/Lienol/openwrt-package/branches/other/lean/luci-app-autoreboot
 svn export https://github.com/Ysurac/openmptcprouter-feeds/trunk/luci-app-iperf
-svn export https://github.com/QiuSimons/OpenWrt-Add/tree/master/luci-app-irqbalance
 svn export https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-control-speedlimit
 #svn export https://github.com/xiaoxifu64/immortalwrt/trunk/package/rooter/ext-rooter-basic
 svn export https://github.com/openwrt/luci/branches/openwrt-22.03/applications/luci-app-wireguard
 svn export https://github.com/lucikap/Brukamen/trunk/luci-app-ua2f
-svn export https://github.com/openwrt/packages/trunk/net/shadowsocks-libev
 svn export https://github.com/kenzok8/jell/trunk/vsftpd-alt
 svn export https://github.com/kenzok8/jell/trunk/luci-app-bridge
 
