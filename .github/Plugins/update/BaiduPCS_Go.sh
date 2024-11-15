@@ -1,4 +1,8 @@
 #!/bin/bash
+#=================================================
+# MZwrt script
+# https://github.com/mzwrt
+#=================================================
 
 # GitHub API URL 获取最新版本信息
 BaiduPCS_Go_API_URL="https://api.github.com/repos/qjfoidnh/BaiduPCS-Go/releases/latest"
