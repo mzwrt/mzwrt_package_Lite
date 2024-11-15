@@ -1,0 +1,24 @@
+--- a/netkeeper-interception/src/netkeeper-interception-c.c
++++ b/netkeeper-interception/src/netkeeper-interception-c.c
+@@ -2,6 +2,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include "pppd/pppd.h"
++#include <stdint.h>
+ typedef unsigned char byte;
+ //TODO : change the version here
+ char pppd_version[] = PPPOE_VER;
+
+--- a/netkeeper-interception/src/netkeeper-interception-s.c
++++ b/netkeeper-interception/src/netkeeper-interception-s.c
+@@ -12,8 +12,8 @@
+ //static char saveuser[MAXNAMELEN] = {0};
+ //static char savepwd[MAXSECRETLEN] = {0};
+ 
+-void print_hex __P(( unsigned char *, uint8_t,  printer_func, void *));
+-void print_hex_to_file __P(( unsigned char *, uint8_t,  printer_func, FILE *));
++void print_hex(unsigned char *, uint8_t, printer_func, void *);
++void print_hex_to_file(unsigned char *, uint8_t, printer_func, FILE *);
+ 
+ void print_hex (p, len, printer, arg)
+     unsigned char *p;
