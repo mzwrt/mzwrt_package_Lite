@@ -49,6 +49,7 @@ jobs:
         $GITHUB_WORKSPACE/.github/Plugins/${{matrix.target}}.sh
         patch -p1 < $GITHUB_WORKSPACE/.github/patches/homeproxy.patch
         patch --no-backup-if-mismatch -p1 < $GITHUB_WORKSPACE/.github/patches/webd.patch
+        patch --no-backup-if-mismatch -p1 < $GITHUB_WORKSPACE/.github/netkeeper-interception.patch
         bash /$GITHUB_WORKSPACE/.github/Plugins/convert_translation.sh
         bash /$GITHUB_WORKSPACE/.github/Plugins/create_acl_for_luci.sh -a
         bash /$GITHUB_WORKSPACE/.github/Plugins/Modify.sh
