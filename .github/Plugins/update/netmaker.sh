@@ -1,4 +1,8 @@
 #!/bin/bash
+#=================================================
+# MZwrt script
+# https://github.com/mzwrt
+#=================================================
 
 # 获取最新的提交 hash
 netmaker_LATEST_COMMIT_HASH=$(curl -s "https://api.github.com/repos/gravitl/netmaker/commits" | jq -r '.[0].sha')
