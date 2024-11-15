@@ -1,6 +1,6 @@
 <div align="center">
 <h1 align="center">每天同步上游分支代码</h1>
-<h3 align="center">缺少插件清提交issues，不定期查看收录，目的是做一个全面的仓库，如果遇到错误信息无法解决，可以查阅[错误披露](https://github.com/mzwrt/mzwrt_package/wiki/error)可能会获得一些解决思路，默认会修复一些小问题</h3>
+<h3 align="center">缺少插件清提交issues，不定期查看收录，目的是做一个全面的仓库，如果遇到错误信息无法解决，可以查阅错误披露可能会获得一些解决思路，默认会修复一些小问题</h3>
 </div>
 
 
