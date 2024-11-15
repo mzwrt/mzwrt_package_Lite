@@ -27,7 +27,7 @@ cloudflared[source_url]="https://codeload.github.com/cloudflare/cloudflared/tar.
 # 更新 Makefile 文件中的版本、哈希值和源代码 URL
 sed -i "s/^PKG_VERSION:=[^ ]*/PKG_VERSION:=${cloudflared[version]}/" feeds/packages/net/cloudflared/Makefile
 sed -i "s/^PKG_HASH:=[^ ]*/PKG_HASH:=${cloudflared[hash]}/" feeds/packages/net/cloudflared/Makefile
-sed -i "s|^PKG_SOURCE_URL:=[^ ]*|PKG_SOURCE_URL:=${cloudflared[source_url]}|g" feeds/packages/net/cloudflared/Makefile
+#sed -i "s|^PKG_SOURCE_URL:=[^ ]*|PKG_SOURCE_URL:=${cloudflared[source_url]}|g" feeds/packages/net/cloudflared/Makefile
 
 # 显示更新后的内容以确认
 echo "更新后的 Makefile 配置："
