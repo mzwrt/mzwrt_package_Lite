@@ -11,6 +11,9 @@
 ```
 <br>
 
+#### 补丁应用
+点击此链接[patch](https://github.com/mzwrt/mzwrt_package/wiki/patch)有详细解释，补丁是使用lean的lede进行编写的，默认支持所有openwrt主分支和其他分支
+
 
 #### 感谢
 
