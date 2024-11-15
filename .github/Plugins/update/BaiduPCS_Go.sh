@@ -29,21 +29,10 @@ wget -O "$BaiduPCS_Go_TAR_FILE" "$BaiduPCS_Go_PKG_SOURCE"
 echo "检查哈希值 $BaiduPCS_Go_TAR_FILE..."
 BaiduPCS_Go_FILE_HASH=$(sha256sum "$BaiduPCS_Go_TAR_FILE" | awk '{ print $1 }')
 
-# 获取 GitHub 上该版本的 .tar.gz 的哈希值
-# 从 API 中获取 tarball_url，然后计算哈希值
-BaiduPCS_Go_EXPECTED_HASH=$(curl -s $BaiduPCS_Go_API_URL | jq -r .tarball_url | xargs curl -sL | sha256sum | awk '{ print $1 }')
-
-# 比较哈希值
-if [ "$BaiduPCS_Go_FILE_HASH" != "$BaiduPCS_Go_EXPECTED_HASH" ]; then
-    echo "警告：哈希不匹配！预期: $BaiduPCS_Go_EXPECTED_HASH, got: $BaiduPCS_Go_FILE_HASH"
-else
-    echo "哈希匹配成功."
-fi
-
 # 更新 Makefile 中的版本号和哈希值
-echo "Updating Makefile with version $BaiduPCS_Go_VERSION_NO_V and hash $BaiduPCS_Go_EXPECTED_HASH..."
+echo "Updating Makefile with version $BaiduPCS_Go_VERSION_NO_V and hash $BaiduPCS_Go_FILE_HASH..."
 sed -i "s/PKG_VERSION:=.*/PKG_VERSION:=$BaiduPCS_Go_VERSION_NO_V/" feeds/packages/net/baidupcs-go/Makefile
-sed -i "s/PKG_HASH:=.*/PKG_HASH:=$BaiduPCS_Go_EXPECTED_HASH/" feeds/packages/net/baidupcs-go/Makefile
+sed -i "s/PKG_HASH:=.*/PKG_HASH:=$BaiduPCS_Go_FILE_HASH/" feeds/packages/net/baidupcs-go/Makefile
 
 # 输出更新结果
 echo "BaiduPCS_Go最新版本和哈希值更新 Makefile."
