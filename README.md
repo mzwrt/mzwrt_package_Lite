@@ -4,21 +4,21 @@
 </div>
 
 
-#### 使用方式：
+- #### 使用方式：
 
 ```bash
  sed -i '$a src-git mzwrt_package https://github.com/mzwrt/mzwrt_package' feeds.conf.default
 ```
 <br>
 
-#### [补丁应用](https://github.com/mzwrt/mzwrt_package/wiki/patch)
+- #### [补丁应用](https://github.com/mzwrt/mzwrt_package/wiki/patch)
 补丁默认已经应用，无需自己操作，披露的原因是可以让需要的人有迹可循，点击此链接[patch](https://github.com/mzwrt/mzwrt_package/wiki/patch)有详细解释，补丁是使用lean的lede进行编写的，默认支持所有openwrt主分支和其他分支
 
-#### [错误披露](https://github.com/mzwrt/mzwrt_package/wiki/error)
+- #### [错误披露](https://github.com/mzwrt/mzwrt_package/wiki/error)
 点击此链接[error](https://github.com/mzwrt/mzwrt_package/wiki/error)查看错误信息，里面有详细的错误信息和大概解决办法,错误并不全面，其他问题请自行解决，谢谢
 
 
-#### 感谢
+- #### 感谢
 
 *  [openwrt](https://github.com/openwrt/openwrt.git)
 
