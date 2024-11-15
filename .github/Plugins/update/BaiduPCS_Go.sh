@@ -40,3 +40,5 @@ sed -i "s/PKG_HASH:=.*/PKG_HASH:=$BaiduPCS_Go_FILE_HASH/" feeds/packages/net/bai
 
 # 输出更新结果
 echo "BaiduPCS_Go最新版本和哈希值更新 Makefile."
+
+exit 0
