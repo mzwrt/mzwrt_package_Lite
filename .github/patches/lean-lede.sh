@@ -31,30 +31,6 @@ confirm() {
     done
 }
 
-# 下载并应用补丁
-download_patch() {
-    PATCH_URL=$1
-    PATCH_FILE=$2
-    wget "$PATCH_URL" -O "$PATCH_FILE" && patch --no-backup-if-mismatch -p1 < "$PATCH_FILE" && rm -f "$PATCH_FILE" || { echo "Failed to apply patch $PATCH_FILE"; exit 1; }
-}
-
-# 应用补丁
-if confirm "是否应用 webd 补丁"; then
-    download_patch "${MZWRT_DOWNLD_FILE}/patches/webd.patch" "$MZWRT_PATCH_PATH/webd.patch"
-fi
-
-if confirm "是否应用 speedtest-web 补丁"; then
-    download_patch "${MZWRT_DOWNLD_FILE}/patches/speedtest-web.patch" "$MZWRT_PATCH_PATH/speedtest-web.patch"
-fi
-
-if confirm "是否应用 netkeeper-interception 补丁"; then
-    download_patch "${MZWRT_DOWNLD_FILE}/patches/netkeeper-interception.patch" "$MZWRT_PATCH_PATH/netkeeper-interception.patch"
-fi
-
-if confirm "是否应用 homeproxy 补丁"; then
-    download_patch "${MZWRT_DOWNLD_FILE}/patches/homeproxy.patch" "$MZWRT_PATCH_PATH/homeproxy.patch"
-fi
-
 # 更新插件并执行脚本
 download_and_run_plugin() {
     PLUGIN_URL=$1
