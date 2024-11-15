@@ -20,3 +20,5 @@ sed -i "s#^PKG_SOURCE_URL:=.*#PKG_SOURCE_URL:=${NEXTDNS_PKG_SOURCE_URL}#" ${NEXT
 sed -i "s#^PKG_HASH:=.*#PKG_HASH:=${NEXTDNS_PKG_HASH}#" ${NEXTDNS_MAKEFILE_PATH}
 
 echo "NextDNS Makefile 已更新到最新版：${NEXTDNS_LATEST_VERSION}"
+
+exit 0
