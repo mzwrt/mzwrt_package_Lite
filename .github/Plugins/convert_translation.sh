@@ -1,4 +1,8 @@
 #!/bin/bash
+#=================================================
+# MZwrt script
+# https://github.com/mzwrt
+#=================================================
 
 for e in $(ls -d luci-*/po); do
 	if [[ -d $e/zh-cn && ! -d $e/zh_Hans ]]; then
