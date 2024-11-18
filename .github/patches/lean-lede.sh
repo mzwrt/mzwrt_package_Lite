@@ -68,7 +68,7 @@ fi
 if confirm "是否修复uugamebooster下载连接?"; then
     echo "修复uugamebooster下载连接"
     sed -i 's|PKG_SOURCE:=.*|PKG_SOURCE:=uu.tar.gz|' package/feeds/packages/uugamebooster/Makefile
-    sed -i 's|PKG_SOURCE_URL:=.*|PKG_SOURCE_URL:=https://uu.gdl.netease.com/uuplugin/openwrt-$(ARCH)/$(PKG_SOURCE)|' package/feeds/packages/uugamebooster/Makefile
+    sed -i 's|PKG_SOURCE_URL:=.*|PKG_SOURCE_URL:=https://uu.gdl.netease.com/uuplugin/openwrt-$(ARCH)/v$(PKG_SOURCE)|' package/feeds/packages/uugamebooster/Makefile
     echo "uugamebooster 已更新。"
 fi
 
