@@ -74,8 +74,8 @@ fi
 
 # 应用bpftools补丁
 if confirm "是否应用bpftools补丁?"; then
-    echo "修复uugamebooster下载连接"
-
+    echo "应用bpftools补丁"
+    wget -O package/network/utils/bpftools/patches/001-fix-init_disassemble_info.patch https://raw.githubusercontent.com/mzwrt/mzwrt_package/main/.github/patches/bpftools.patch
     echo "bpftools 补丁已应用。"
 fi
 
