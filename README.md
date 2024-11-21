@@ -11,7 +11,7 @@
 ```
 上面的命令是在文件：`feeds.conf.default`里面添加`src-git mzwrt_package https://github.com/mzwrt/mzwrt_package` 可以手动添加，但是建议命令添加防止出错
 
-- #### lena的lede编译前纠错脚本
+- #### lena的lede编译前纠错脚本 运行./scripts/feeds install -a以后使用
 ```
 wget https://raw.githubusercontent.com/mzwrt/mzwrt_package/refs/heads/main/.github/patches/lean-lede.sh && bash lean-lede.sh -y && rm -rf lean-lede.sh
 ```
