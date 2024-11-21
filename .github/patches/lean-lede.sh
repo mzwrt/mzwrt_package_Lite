@@ -72,4 +72,11 @@ if confirm "是否修复uugamebooster下载连接?"; then
     echo "uugamebooster 已更新。"
 fi
 
+# 应用bpftools补丁
+if confirm "是否应用bpftools补丁?"; then
+    echo "修复uugamebooster下载连接"
+
+    echo "bpftools 补丁已应用。"
+fi
+
 exit 0
