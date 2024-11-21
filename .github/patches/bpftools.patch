@@ -1,0 +1,15 @@
+--- a/src/jit_disasm.c	2024-11-21 09:29:18.257975206 +0800
++++ b/src/jit_disasm.c	2022-03-08 17:12:12.000000000 +0800
+@@ -99,10 +99,10 @@
+ 	assert(bfd_check_format(bfdf, bfd_object));
+ 
+ 	if (json_output)
+-		init_disassemble_info(&info, stdout,
++		init_disassemble_info(&info, stdout, NULL,
+ 				      (fprintf_ftype) fprintf_json);
+ 	else
+-		init_disassemble_info(&info, stdout,
++		init_disassemble_info(&info, stdout, NULL,
+ 				      (fprintf_ftype) fprintf);
+ 
+ 	/* Update architecture info for offload. */
