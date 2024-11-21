@@ -79,4 +79,11 @@ if confirm "是否应用bpftools补丁?"; then
     echo "bpftools 补丁已应用。"
 fi
 
+# 应用tgt补丁
+if confirm "是否应用tgt补丁?"; then
+    echo "应用tgt补丁"
+    wget -O feeds/packages/net/tgt/patches/01_pread64.patch https://raw.githubusercontent.com/mzwrt/mzwrt_package/refs/heads/main/.github/patches/tgt.patch
+    echo "tgt补丁 补丁已应用。"
+fi
+
 exit 0
