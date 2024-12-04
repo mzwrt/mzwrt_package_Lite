@@ -22,7 +22,7 @@ php_pid_path="$neko_tmp_dir/php_pid.txt"
 log="$neko_dir/tmp/log.txt"
 
 neko_ver(){
-    neko_version="1.5.6"
+    neko_version="0.0.0"
 }
 
 logs() {
@@ -269,7 +269,6 @@ while getopts ":skrpcvh" signal ; do
             ;;
         v)
             neko_ver
-            neko_checknewver
             echo "v.$neko_version"
             ;;
         h)

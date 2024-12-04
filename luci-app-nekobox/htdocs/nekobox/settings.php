@@ -45,7 +45,7 @@ $singBoxVersion = getSingboxVersion();
 <?php
 
 function getUiVersion() {
-    $versionFile = '/etc/neko/ui/metacubexd/version.txt';
+    $versionFile = '/etc/neko/ui/zashboard/version.txt';
     
     if (file_exists($versionFile)) {
         return trim(file_get_contents($versionFile));
@@ -80,7 +80,7 @@ $uiVersion = getUiVersion();
             <a href="./" class="col btn btn-lg">🏠 首页</a>
             <a href="./dashboard.php" class="col btn btn-lg">📊 面板</a>
             <a href="./configs.php" class="col btn btn-lg">⚙️ 配置</a>
-            <a href="/nekobox/mon.php" class="col btn btn-lg d-flex align-items-center justify-content-center"></i>📦 订阅</a> 
+            <a href="/nekobox/mon.php" class="col btn btn-lg"></i>📦 订阅</a> 
             <a href="#" class="col btn btn-lg">🛠️ 设定</a>
          <div class="container px-4">
     <h2 class="text-center p-2 mb-3">主题设定</h2>
@@ -133,13 +133,13 @@ $uiVersion = getUiVersion();
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="text-center">
-                                <h3>Metacubexd 面板</h3>
+                                <h3>Ui 控制面板</h3>
                                 <div class="form-control text-center">
                                     <?php echo htmlspecialchars($uiVersion); ?>&nbsp;<span id="NewUi"> </span>
                                 </div>
                                 <div class="text-center mt-2">
                                     <button class="btn btn-pink" id="checkUiButton">🔍 检测版本</button> 
-                                    <button class="btn btn-info" id="updateUiButton" title="更新 Metacubexd 面板">🔄 更新版本</button>
+                                    <button class="btn btn-info" id="updateUiButton" title="更新面板" onclick="showPanelSelector()">🔄 更新版本</button>
                                 </div>
                             </div>
                         </div>
@@ -174,6 +174,7 @@ $uiVersion = getUiVersion();
             </tr>
         </tbody>
     </table>
+
 <div class="modal fade" id="updateVersionModal" tabindex="-1" aria-labelledby="updateVersionModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -222,6 +223,7 @@ $uiVersion = getUiVersion();
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="optionsModal" tabindex="-1" aria-labelledby="optionsModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -296,6 +298,30 @@ $uiVersion = getUiVersion();
     </div>
 </div>
 
+<div id="panelSelectionModal" class="modal fade" tabindex="-1" aria-labelledby="panelSelectionModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="panelSelectionModalLabel">选择面板</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="panelSelect">选择一个面板</label>
+                    <select id="panelSelect" class="form-select">
+                        <option value="zashboard">Zashboard 面板</option>
+                        <option value="metacubexd">Metacubexd 面板</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="confirmPanelSelection()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -365,6 +391,17 @@ let selectedSingboxVersion = 'v1.11.0-alpha.6';
 let selectedMihomoVersion = 'stable';  
 let selectedLanguage = 'cn';  
 let selectedSingboxVersionForChannelTwo = 'preview'; 
+let selectedPanel = 'zashboard';
+
+function showPanelSelector() {
+    $('#panelSelectionModal').modal('show');
+}
+
+function confirmPanelSelection() {
+    selectedPanel = document.getElementById('panelSelect').value;
+    $('#panelSelectionModal').modal('hide'); 
+    selectOperation('panel');
+}
 
 function showUpdateVersionModal() {
     $('#updateVersionModal').modal('show');  
@@ -455,9 +492,19 @@ function selectOperation(type) {
             url: 'update_script.php?lang=' + selectedLanguage,  
             message: '开始下载客户端更新...',
             description: '正在更新客户端到最新版本'
+        },
+        'panel': { 
+            url: selectedPanel === 'zashboard' 
+                ? 'update_zashboard.php' 
+                : 'update_metacubexd.php', 
+            message: selectedPanel === 'zashboard' 
+                ? '开始下载 Zashboard 面板更新...' 
+                : '开始下载 Metacubexd 面板更新...', 
+            description: selectedPanel === 'zashboard' 
+                ? '正在更新 Zashboard 面板到最新版本' 
+                : '正在更新 Metacubexd 面板到最新版本' 
         }
     };
-
     const operation = operations[type];
     if (operation) {
         setTimeout(function() {
@@ -501,64 +548,107 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('updateUiButton').addEventListener('click', function() {
-        initiateUpdate('ui.php', '开始下载 UI 面板更新...', '正在更新 Metacubexd 面板到最新版本');
+        showPanelSelector();  
     });
 });
 </script>
 
 <script>
-function checkVersion(buttonId, outputId, url) {
+function checkVersion(outputId, updateFiles, buttonId = null) {
     document.getElementById(outputId).innerHTML = '正在检查新版本...';
+    let results = [];
+    updateFiles.forEach(file => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', file.url + '?check_version=true', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                let responseText = xhr.responseText.trim();
+                const versionMatch = responseText.match(/最新版本:\s*([^\s]+)/);
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url + '?check_version=true', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            let responseText = xhr.responseText.trim();
-            const versionMatch = responseText.match(/最新版本:\s*([^\s]+)/);
+                if (versionMatch && versionMatch[1]) {
+                    const newVersion = versionMatch[1];
+                    results.push(`<tr><td>${file.name}</td><td>${newVersion}</td></tr>`);
 
-            if (versionMatch && versionMatch[1]) {
-                const newVersion = versionMatch[1];
-                document.getElementById(outputId).innerHTML = `最新版本: ${newVersion}`;
+                    if (file.url === 'update_singbox_preview.php') {
+                        const select = document.getElementById('singboxVersionSelect');
+                        let versionExists = Array.from(select.options).some(option => option.value === newVersion);
 
-                if (buttonId === 'checkSingboxButton') {
-                    const select = document.getElementById('singboxVersionSelect');
-                    let versionExists = Array.from(select.options).some(option => option.value === newVersion);
-
-                    if (!versionExists) {
-                        const newOption = document.createElement('option');
-                        newOption.value = newVersion;
-                        newOption.textContent = newVersion;
-                        select.appendChild(newOption);
+                        if (!versionExists) {
+                            const newOption = document.createElement('option');
+                            newOption.value = newVersion;
+                            newOption.textContent = newVersion;
+                            select.appendChild(newOption);
+                        }
                     }
+                } else {
+                    results.push(`<tr><td>${file.name}</td><td>无法解析版本信息</td></tr>`);
                 }
             } else {
-                document.getElementById(outputId).innerHTML = '无法解析版本信息，请稍后重试。';
+                results.push(`<tr><td>${file.name}</td><td>版本检测失败</td></tr>`);
             }
-        } else {
-            document.getElementById(outputId).innerHTML = '版本检测失败，请稍后重试。';
-        }
-    };
-    xhr.onerror = function() {
-        document.getElementById(outputId).innerHTML = '网络错误，请稍后重试';
-    };
-    xhr.send();
+            document.getElementById(outputId).innerHTML = `
+                <table style="border-collapse: collapse; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 8px;">组件名称</th>
+                            <th style="text-align: left; padding: 8px;">最新版本</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.join('')}
+                    </tbody>
+                </table>
+            `;
+        };
+        xhr.onerror = function () {
+            results.push(`<tr><td>${file.name}</td><td>网络错误</td></tr>`);
+            document.getElementById(outputId).innerHTML = `
+                <table style="border-collapse: collapse; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 8px;">组件名称</th>
+                            <th style="text-align: left; padding: 8px;">最新版本</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.join('')}
+                    </tbody>
+                </table>
+            `;
+        };
+        xhr.send();
+    });
 }
 
-document.getElementById('checkSingboxButton').addEventListener('click', function() {
-    checkVersion('checkSingboxButton', 'NewSingbox', 'update_singbox_preview.php');
+document.getElementById('checkSingboxButton').addEventListener('click', function () {
+    const updateFiles = [
+        { name: 'Singbox 正式版', url: 'update_singbox_stable.php' },
+        { name: 'Singbox 预览版', url: 'update_singbox_preview.php' },
+        { name: 'Puernya 预览版', url: 'puernya.php' }
+    ];
+    checkVersion('NewSingbox', updateFiles);
+});
+
+document.getElementById('checkMihomoButton').addEventListener('click', function () {
+    const updateFiles = [
+        { name: 'Mihomo 正式版', url: 'update_mihomo_stable.php' },
+        { name: 'Mihomo 预览版', url: 'update_mihomo_preview.php' }
+    ];
+    checkVersion('NewMihomo', updateFiles);
+});
+
+document.getElementById('checkUiButton').addEventListener('click', function () {
+    const updateFiles = [
+        { name: 'MetaCube', url: 'update_metacubexd.php' },
+        { name: 'Zashboard', url: 'update_zashboard.php' }
+    ];
+    checkVersion('NewUi', updateFiles);
 });
 
 document.getElementById('checkCliverButton').addEventListener('click', function() {
-    checkVersion('checkCliverButton', 'NewCliver', 'update_script.php');
-});
-
-document.getElementById('checkMihomoButton').addEventListener('click', function() {
-    checkVersion('checkMihomoButton', 'NewMihomo', 'update_mihomo_stable.php');
-});
-
-document.getElementById('checkUiButton').addEventListener('click', function() {
-    checkVersion('checkUiButton', 'NewUi', 'ui.php');
+    checkVersion('NewCliver', [
+        { name: 'Cliver', url: 'update_script.php' }
+    ]);
 });
 </script>
 
@@ -620,7 +710,6 @@ document.getElementById('checkUiButton').addEventListener('click', function() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NekoBox</title>
-    <link rel="stylesheet" href="/www/nekobox/assets/css/bootstrap.min.css">
     <style>
         body {
             margin: 0;
@@ -791,7 +880,5 @@ document.getElementById('checkUiButton').addEventListener('click', function() {
     <p><?php echo $footer ?></p>
 </footer>
     </div>
-
-    <script src="/www/nekobox/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
