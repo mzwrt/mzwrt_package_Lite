@@ -123,7 +123,7 @@ $uiVersion = getUiVersion();
                             <div class="text-center">
                                 <h3>客户端版本</h3>
                                 <div class="form-control text-center" style="font-family: monospace; text-align: center;">
-                                    <span id="cliver"></span>&nbsp;<span id="NewCliver"> </span>
+                                    <span id="cliver"></span><span id="NewCliver"> </span>
                                 </div>
                                 <div class="text-center mt-2">
                                     <button class="btn btn-pink" id="checkCliverButton">🔍 检测版本</button>
@@ -135,7 +135,7 @@ $uiVersion = getUiVersion();
                             <div class="text-center">
                                 <h3>Ui 控制面板</h3>
                                 <div class="form-control text-center">
-                                    <?php echo htmlspecialchars($uiVersion); ?>&nbsp;<span id="NewUi"> </span>
+                                    <?php echo htmlspecialchars($uiVersion); ?><span id="NewUi"> </span>
                                 </div>
                                 <div class="text-center mt-2">
                                     <button class="btn btn-pink" id="checkUiButton">🔍 检测版本</button> 
@@ -148,7 +148,7 @@ $uiVersion = getUiVersion();
                                 <h3>Sing-box 核心版本</h3>
                                 <div class="form-control text-center">
                                     <div id="singBoxCorever">
-                                        <?php echo htmlspecialchars($singBoxVersion); ?>&nbsp;<span id="NewSingbox"></span>
+                                        <?php echo htmlspecialchars($singBoxVersion); ?><span id="NewSingbox"></span>
                                     </div>
                                 </div>
                                 <div class="text-center mt-2">
@@ -161,7 +161,7 @@ $uiVersion = getUiVersion();
                             <div class="text-center">
                                 <h3>Mihomo 核心版本</h3>
                                 <div class="form-control text-center">
-                                    <span id="corever"></span>&nbsp;<span id="NewMihomo"> </span>
+                                    <span id="corever"></span><span id="NewMihomo"> </span>
                                 </div>
                                 <div class="text-center mt-2">
                                     <button class="btn btn-pink" id="checkMihomoButton">🔍 检测版本</button> 
@@ -264,6 +264,7 @@ $uiVersion = getUiVersion();
                     <option value="v1.11.0-alpha.10">v1.11.0-alpha.10</option>
                     <option value="v1.11.0-alpha.15">v1.11.0-alpha.15</option>
                     <option value="v1.11.0-alpha.20">v1.11.0-alpha.20</option>
+                    <option value="v1.11.0-beta.5">v1.11.0-beta.5</option>
                 </select>
             </div>
             <div class="modal-footer">
@@ -311,12 +312,32 @@ $uiVersion = getUiVersion();
                     <select id="panelSelect" class="form-select">
                         <option value="zashboard">Zashboard 面板</option>
                         <option value="metacubexd">Metacubexd 面板</option>
+                        <option value="yacd-meat">Yacd-Meat 面板</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" onclick="confirmPanelSelection()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="versionModal" tabindex="-1" aria-labelledby="versionModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="versionModalLabel">版本检测结果</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent">
+                    <p>正在加载...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -496,13 +517,25 @@ function selectOperation(type) {
         'panel': { 
             url: selectedPanel === 'zashboard' 
                 ? 'update_zashboard.php' 
-                : 'update_metacubexd.php', 
+                : selectedPanel === 'yacd-meat' 
+                    ? 'update_meta.php' 
+                    : selectedPanel === 'metacubexd' 
+                        ? 'update_metacubexd.php' 
+                        : 'unknown_panel.php', 
             message: selectedPanel === 'zashboard' 
                 ? '开始下载 Zashboard 面板更新...' 
-                : '开始下载 Metacubexd 面板更新...', 
+                : selectedPanel === 'yacd-meat' 
+                    ? '开始下载 Yacd-Meat 面板更新...' 
+                    : selectedPanel === 'metacubexd' 
+                        ? '开始下载 Metacubexd 面板更新...' 
+                        : '未知面板更新类型...',
             description: selectedPanel === 'zashboard' 
                 ? '正在更新 Zashboard 面板到最新版本' 
-                : '正在更新 Metacubexd 面板到最新版本' 
+                : selectedPanel === 'yacd-meat' 
+                    ? '正在更新 Yacd-Meat 面板到最新版本' 
+                    : selectedPanel === 'metacubexd' 
+                        ? '正在更新 Metacubexd 面板到最新版本' 
+                        : '无法识别的面板类型，无法更新。'
         }
     };
     const operation = operations[type];
@@ -554,20 +587,30 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-function checkVersion(outputId, updateFiles, buttonId = null) {
-    document.getElementById(outputId).innerHTML = '正在检查新版本...';
+function checkVersion(outputId, updateFiles) {
+    const modalContent = document.getElementById('modalContent');
+    const versionModal = new bootstrap.Modal(document.getElementById('versionModal'));
+    modalContent.innerHTML = '<p>正在检查新版本...</p>';
     let results = [];
-    updateFiles.forEach(file => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', file.url + '?check_version=true', true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                let responseText = xhr.responseText.trim();
-                const versionMatch = responseText.match(/最新版本:\s*([^\s]+)/);
 
+    const requests = updateFiles.map((file) => {
+        return fetch(file.url + '?check_version=true')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`请求失败: ${file.name}`);
+                }
+                return response.text();
+            })
+            .then(responseText => {
+                const versionMatch = responseText.trim().match(/最新版本:\s*([^\s]+)/);
                 if (versionMatch && versionMatch[1]) {
                     const newVersion = versionMatch[1];
-                    results.push(`<tr><td>${file.name}</td><td>${newVersion}</td></tr>`);
+                    results.push(`
+                        <tr class="table-success">
+                            <td>${file.name}</td>
+                            <td>${newVersion}</td>
+                        </tr>
+                    `);
 
                     if (file.url === 'update_singbox_preview.php') {
                         const select = document.getElementById('singboxVersionSelect');
@@ -581,42 +624,39 @@ function checkVersion(outputId, updateFiles, buttonId = null) {
                         }
                     }
                 } else {
-                    results.push(`<tr><td>${file.name}</td><td>无法解析版本信息</td></tr>`);
+                    results.push(`
+                        <tr class="table-warning">
+                            <td>${file.name}</td>
+                            <td>无法解析版本信息</td>
+                        </tr>
+                    `);
                 }
-            } else {
-                results.push(`<tr><td>${file.name}</td><td>版本检测失败</td></tr>`);
-            }
-            document.getElementById(outputId).innerHTML = `
-                <table style="border-collapse: collapse; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="text-align: left; padding: 8px;">组件名称</th>
-                            <th style="text-align: left; padding: 8px;">最新版本</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${results.join('')}
-                    </tbody>
-                </table>
-            `;
-        };
-        xhr.onerror = function () {
-            results.push(`<tr><td>${file.name}</td><td>网络错误</td></tr>`);
-            document.getElementById(outputId).innerHTML = `
-                <table style="border-collapse: collapse; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="text-align: left; padding: 8px;">组件名称</th>
-                            <th style="text-align: left; padding: 8px;">最新版本</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${results.join('')}
-                    </tbody>
-                </table>
-            `;
-        };
-        xhr.send();
+            })
+            .catch(error => {
+                results.push(`
+                    <tr class="table-danger">
+                        <td>${file.name}</td>
+                        <td>网络错误</td>
+                    </tr>
+                `);
+            });
+    });
+
+    Promise.all(requests).then(() => {
+        modalContent.innerHTML = `
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">组件名称</th>
+                        <th class="text-center">最新版本</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${results.join('')}
+                </tbody>
+            </table>
+        `;
+        versionModal.show(); 
     });
 }
 
@@ -640,16 +680,17 @@ document.getElementById('checkMihomoButton').addEventListener('click', function 
 document.getElementById('checkUiButton').addEventListener('click', function () {
     const updateFiles = [
         { name: 'MetaCube', url: 'update_metacubexd.php' },
-        { name: 'Zashboard', url: 'update_zashboard.php' }
+        { name: 'Zashboard', url: 'update_zashboard.php' },
+        { name: 'yacd-meat', url: 'update_meta.php' }
     ];
     checkVersion('NewUi', updateFiles);
 });
 
-document.getElementById('checkCliverButton').addEventListener('click', function() {
-    checkVersion('NewCliver', [
-        { name: 'Cliver', url: 'update_script.php' }
-    ]);
+document.getElementById('checkCliverButton').addEventListener('click', function () {
+    const updateFiles = [{ name: '客户端', url: 'update_script.php' }];
+    checkVersion('NewCliver', updateFiles);
 });
+
 </script>
 
 <script>
