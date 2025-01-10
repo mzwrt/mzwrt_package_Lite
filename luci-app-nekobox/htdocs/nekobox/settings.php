@@ -69,6 +69,9 @@ function getMihomoVersion() {
                 preg_match('/([0-9]+(\.[0-9]+)+)/', $line, $matches);
                 if (!empty($matches)) {
                     $version = $matches[0];  
+                    if (preg_match('/^\d/', $version)) {
+                        $version = 'v' . $version;
+                    }
                     return ['version' => $version, 'type' => '正式版'];
                 }
             }
@@ -165,6 +168,7 @@ $razordVersion = getRazordVersion();
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="./assets/theme/<?php echo $neko_theme ?>" rel="stylesheet">
     <link href="./assets/css/custom.css" rel="stylesheet">
+    <link href="./assets/bootstrap/bootstrap-icons.css" rel="stylesheet">
     <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./assets/js/feather.min.js"></script>
     <script type="text/javascript" src="./assets/bootstrap/bootstrap.bundle.min.js"></script>
@@ -177,14 +181,34 @@ $razordVersion = getRazordVersion();
         margin-left: 10px;
         margin-right: 16px;
     }
+
+    @media (max-width: 576px) {
+        .btn-custom {
+            width: 20%; 
+            margin: 0 auto; 
+            display: block; 
+    }
+
+        .btn-fw {
+            width: 100%; 
+            margin-right: 0; 
+            margin-bottom: 10px; 
+        }
+
+        .container .form-select {
+            margin-right: 6ch;
+            width: calc(100% - 1.8ch); 
+        }
+    }
+
 </style>
   <body>
     <div class="container-sm container-bg text-center callout border border-3 rounded-4 col-11">
         <div class="row">
-            <a href="./index.php" class="col btn btn-lg">🏠 首页</a>
-            <a href="./dashboard.php" class="col btn btn-lg">📊 面板</a>
-            <a href="./singbox.php" class="col btn btn-lg"></i>📦 订阅</a> 
-            <a href="./settings.php" class="col btn btn-lg">🛠️ 设定</a>
+            <a href="./index.php" class="col btn btn-lg"><i class="bi bi-house-door"></i> 首页</a>
+            <a href="./dashboard.php" class="col btn btn-lg"><i class="bi bi-bar-chart"></i> 面板</a>
+            <a href="./singbox.php" class="col btn btn-lg"><i class="bi bi-box"></i> 订阅</a> 
+            <a href="./settings.php" class="col btn btn-lg"><i class="bi bi-gear"></i> 设定</a>
 <div class="container px-4">
     <h2 class="text-center p-2 mb-4">主题设定</h2>
     <form action="settings.php" method="post">
@@ -197,7 +221,7 @@ $razordVersion = getRazordVersion();
             </div>
             <div class="col-12 col-md-6 mb-3" style="padding-right: 1.3rem;" >
                 <div class="d-grid">
-                    <input class="btn btn-info" type="submit" value="🖫 更改主题">
+                    <input class="btn btn-info btn-custom" type="submit" value="🖫 更改主题">
                 </div>
             </div>
         </div>
@@ -209,7 +233,7 @@ $razordVersion = getRazordVersion();
                     <h2 class="text-center mb-3">自动重载防火墙</h2>
                     <form action="settings.php" method="post">
                         <div class="btn-group d-flex justify-content-center">
-                            <button type="submit" name="fw" value="enable" class="btn btn<?php if($fwstatus==1) echo "-outline" ?>-success <?php if($fwstatus==1) echo "disabled" ?>" style="margin-right: 20px;">启用</button>
+                            <button type="submit" name="fw" value="enable" class="btn btn<?php if($fwstatus==1) echo "-outline" ?>-success <?php if($fwstatus==1) echo "disabled" ?> btn-fw" style="margin-right: 20px;">启用</button>
                             <button type="submit" name="fw" value="disable" class="btn btn<?php if($fwstatus==0) echo "-outline" ?>-danger <?php if($fwstatus==0) echo "disabled" ?>">停用</button>
                          </div>
                      </form>
@@ -297,7 +321,7 @@ $razordVersion = getRazordVersion();
             <tbody>
                 <tr>
                     <td class="text-center">
-                        <span id="corever"></span><span id="NewMihomo"> </span>
+                        <?php echo htmlspecialchars($mihomoVersion); ?><span id="NewMihomo"> </span>
                     </td>
                 </tr>
                 <tr>
@@ -469,6 +493,8 @@ $razordVersion = getRazordVersion();
                         <option value="v1.11.0-alpha.20">v1.11.0-alpha.20</option>
                         <option value="v1.11.0-beta.5">v1.11.0-beta.5</option>
                         <option value="v1.11.0-beta.10">v1.11.0-beta.10</option>
+                        <option value="v1.11.0-beta.15">v1.11.0-beta.15</option>
+                        <option value="v1.11.0-beta.20">v1.11.0-beta.20</option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -525,13 +551,13 @@ $razordVersion = getRazordVersion();
                     <label for="panelSelect">选择一个面板</label>
                     <select id="panelSelect" class="form-select">
                         <option value="zashboard">Zashboard 面板 【小内存】</option>
-                        <option value="zashboard1">Zashboard 面板【大内存】</option>
+                        <option value="Zashboard">Zashboard 面板 【大内存】</option>
                         <option value="metacubexd">Metacubexd 面板</option>
                         <option value="yacd-meat">Yacd-Meat 面板</option>
                         <option value="dashboard">Dashboard 面板</option>
                     </select>
                 </div>
-            </div>
+            </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" onclick="confirmPanelSelection()">确认</button>
@@ -797,7 +823,7 @@ function selectOperation(type) {
         'panel': { 
             url: selectedPanel === 'zashboard' 
             ? 'update_zashboard.php?panel=zashboard&update_type=dist' 
-            : selectedPanel === 'zashboard1' 
+            : selectedPanel === 'Zashboard' 
                 ? 'update_zashboard.php?panel=zashboard1&update_type=fonts' 
                 : selectedPanel === 'yacd-meat' 
                     ? 'update_meta.php' 
@@ -807,9 +833,9 @@ function selectOperation(type) {
                             ? 'update_dashboard.php'  
                             : 'unknown_panel.php', 
             message: selectedPanel === 'zashboard' 
-            ? '开始下载 Zashboard 面板更新（dist.zip）...' 
-            : selectedPanel === 'zashboard1' 
-                ? '开始下载 Zashboard 面板 更新（dist-cdn-fonts.zip）...'
+            ? '开始下载 Zashboard 面板更新（dist-cdn-fonts.zip）...' 
+            : selectedPanel === 'Zashboard' 
+                ? '开始下载 Zashboard 面板 更新（dist.zip）...'
                 : selectedPanel === 'yacd-meat' 
                     ? '开始下载 Yacd-Meat 面板更新...' 
                     : selectedPanel === 'metacubexd' 
@@ -818,9 +844,9 @@ function selectOperation(type) {
                             ? '开始下载 Dashboard 面板更新...'  
                             : '未知面板更新类型...',
             description: selectedPanel === 'zashboard' 
-            ? '正在更新 Zashboard 面板到最新版本（dist.zip），如遇无法显示清除浏览器缓存。' 
-            : selectedPanel === 'zashboard1' 
-                ? '正在更新 Zashboard 面板到最新版本（dist-cdn-fonts.zip），如遇无法显示清除浏览器缓存。'  
+            ? '正在更新 Zashboard 面板到最新版本（dist-cdn-fonts.zip），如遇无法显示清除浏览器缓存。' 
+            : selectedPanel === 'Zashboard' 
+                ? '正在更新 Zashboard 面板到最新版本（dist.zip），如遇无法显示清除浏览器缓存。'  
                 : selectedPanel === 'yacd-meat' 
                     ? '正在更新 Yacd-Meat 面板到最新版本，如遇无法显示清除浏览器缓存。' 
                     : selectedPanel === 'metacubexd' 
