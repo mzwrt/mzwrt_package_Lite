@@ -383,6 +383,7 @@ $lang = $_GET['lang'] ?? 'en';
  }
 }
 </style>
+
 <?php if (in_array($lang, ['zh-cn', 'en', 'auto'])): ?>
     <div id="status-bar-component" class="container-sm container-bg callout border border-3 rounded-4 col-11">
         <div class="row align-items-center">
@@ -668,24 +669,6 @@ $lang = $_GET['lang'] ?? 'en';
     }
 }
 
-@media (max-width: 768px) {
-    .popup {
-        display: none;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
-        justify-content: center;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-    .popup button {
-        width: 100%; 
-        padding: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-}
-
 @media only screen and (max-width: 768px) {
   body, html {
     overflow-x: hidden;
@@ -710,6 +693,86 @@ $lang = $_GET['lang'] ?? 'en';
     margin-left:  5px !important;  
   }
 }
+
+@media (max-width: 768px) {
+    #toggle-ip i {
+        display: none; 
+    }
+}
+
+@media (max-width: 767.98px) {
+    .popup-backdrop {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 1040; 
+    }
+
+    .popup {
+        display: none; 
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 40px); 
+        z-index: 1050; 
+    }
+
+    .popup h3 {
+        grid-column: 1 / -1;
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .popup button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 0.875rem;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .popup button:hover {
+        background-color: #0056b3;
+    }
+
+    .popup button i {
+        margin-right: 5px;
+    }
+
+    .popup button:last-child {
+        grid-column: 1 / -1;
+        background-color: #dc3545;
+        color: #fff; 
+    }
+
+    .popup button:last-child i {
+        color: #fff; 
+    }
+
+    .popup button:last-child:hover {
+        background-color: #c82333;
+    }
+}
+
+</style>
 </style>
 <script src="./assets/bootstrap/Sortable.min.js"></script>
 <link href="./assets/bootstrap/video-js.css" rel="stylesheet" />
@@ -1604,7 +1667,7 @@ setInterval(IP.getIpipnetIP, 180000);
     <button onclick="toggleControlPanel()" id="control-btn">🎛️ 音量和进度控制</button>
     <button id="openPlayerButton"  data-bs-toggle="modal" data-bs-target="#audioPlayerModal">🎶 音乐播放器</button>
     <button type='button' onclick='openVideoPlayerModal()'><i class='fas fa-video'></i> 媒体播放器</button>
-    <button onclick="toggleObjectFit()" id="object-fit-btn">🔲 切换视频显示模式</button>
+    <button onclick="toggleObjectFit()" id="object-fit-btn">🔲 切换显示模式</button>
     <button onclick="toggleFullScreen()" id="fullscreen-btn">⛶ 切换全屏</button>
     <button id="clear-cache-btn">🗑️ 清除缓存</button>
     <button type="button" data-bs-toggle="modal" data-bs-target="#cityModal">🌆 设置城市</button>
@@ -1843,6 +1906,7 @@ window.addEventListener('load', function() {
     font-weight: bold;
     color: #1db954;
     text-align: center;
+    transition: color 0.5s ease-in-out;
 }
 
 #tooltip {
@@ -2083,6 +2147,27 @@ window.addEventListener('load', function() {
     white-space: nowrap; 
     z-index: 9999;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    transition: color 0.5s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .floating-lyrics {
+        top: auto; 
+        bottom: 10px; 
+        max-width: 90%; 
+        font-size: 14px; 
+        padding: 8px 12px; 
+    }
+}
+
+@media (max-width: 768px) {
+    .container-sm .btn i {
+        margin-right: 0; 
+    }
+    
+    .container-sm .btn {
+        font-size: 9px;
+    }
 }
 </style>
 <div id="floatingLyrics" class="floating-lyrics"></div>
@@ -2138,6 +2223,8 @@ let isLooping = false;
 let hasModalShown = false;
 let lyrics = {};
 let isPinned = false; 
+let isSmallScreen = window.innerWidth <= 768;
+
 
 const logBox = document.createElement('div');
 logBox.style.position = 'fixed';
@@ -2613,7 +2700,9 @@ function syncLyrics() {
             lines.forEach(l => l.classList.remove('highlight'));
             line.classList.add('highlight');
             currentLine = line;
-            line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (!isSmallScreen) {  
+                line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
     });
 
@@ -2623,6 +2712,10 @@ function syncLyrics() {
         floatingLyrics.style.display = 'block';  
     }
 }
+
+window.addEventListener('resize', function() {
+    isSmallScreen = window.innerWidth <= 768;
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     isPinned = localStorage.getItem('isPinned') === 'true';
@@ -2668,6 +2761,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const playlistCollapse = new bootstrap.Collapse(document.getElementById('playlistCollapse'), {
         toggle: state ? !state.playlistCollapsed : true
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const lyricsContainer = document.querySelector("#lyricsContainer");
+    const floatingLyrics = document.querySelector("#floatingLyrics");
+    const trackName = document.querySelector("#trackName");
+    const dateDisplay = document.getElementById("dateDisplay");
+    const timeDisplay = document.getElementById("timeDisplay");
+
+    const icons = document.querySelectorAll(".icon");
+
+    const colors = ["#ff69b4", "#ff4500", "#00ff00", "#00ffff", "#ff1493", "#007bff"];
+
+    let lyricsContainerIndex = 0;
+    let floatingLyricsIndex = 1;
+    let trackNameIndex = 2;
+    let dateDisplayIndex = 3;
+    let timeDisplayIndex = 4;
+    let iconIndex = 5;  
+
+    function changeColor() {
+        if (lyricsContainer) {
+            lyricsContainer.style.color = colors[lyricsContainerIndex];
+        }
+        if (floatingLyrics) {
+            floatingLyrics.style.color = colors[floatingLyricsIndex];
+        }
+        if (trackName) {
+            trackName.style.color = colors[trackNameIndex];
+        }
+        if (dateDisplay) {
+            dateDisplay.style.color = colors[dateDisplayIndex];
+        }
+        if (timeDisplay) {
+            timeDisplay.style.color = colors[timeDisplayIndex];
+        }
+
+        icons.forEach((icon) => {
+            icon.style.color = colors[iconIndex];
+        });
+
+        lyricsContainerIndex = (lyricsContainerIndex + 1) % colors.length;
+        floatingLyricsIndex = (floatingLyricsIndex + 1) % colors.length;
+        trackNameIndex = (trackNameIndex + 1) % colors.length;
+        dateDisplayIndex = (dateDisplayIndex + 1) % colors.length;
+        timeDisplayIndex = (timeDisplayIndex + 1) % colors.length;
+        iconIndex = (iconIndex + 1) % colors.length;  
+    }
+
+    setInterval(changeColor, 5000); 
 });
 
 loadDefaultPlaylist();
@@ -4209,6 +4352,71 @@ input[type="range"]:focus {
     }
 }
 
+@media (max-width: 767.98px) {
+    .modal-xl {
+        max-width: 100%;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+        max-height: 95vh;
+    }
+
+    .modal-content {
+        height: 100%;
+    }
+
+    .modal-header .modal-title {
+        font-size: 1.25rem;
+    }
+
+    .modal-header .btn-close {
+        padding: 0.5rem;
+    }
+
+    .toggle-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+
+    .toggle-container button {
+        flex: 1;
+        padding: 5px;
+        font-size: 0.875rem;
+    }
+
+    .media-container,
+    .playlist-container {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .media-container {
+        display: none;
+    }
+
+    .playlist-container {
+        display: none;
+    }
+
+    .modal-footer button {
+        font-size: 0.875rem;
+    }
+
+    #videoPlayer, #audioPlayer, #imageViewer {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .toggle-container {
+        display: none; 
+    }
+}
 </style>
 
 <script>
@@ -4455,11 +4663,15 @@ input[type="range"]:focus {
                 <h5 class="modal-title" id="videoPlayerModalLabel">媒体播放器</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="toggle-container">
+                <button type="button" class="btn btn-outline-primary" onclick="showMediaContainer()">播放媒体</button>
+                <button type="button" class="btn btn-success" onclick="showPlaylistContainer()">播放列表</button>
+            </div>
             <div class="modal-body">
                 <div class="media-container">
-                    <video id="videoPlayer" controls preload="auto" style="display: none;"></video>
-                    <audio id="audioPlayer" controls preload="auto" style="display: none;"></audio>
-                    <img id="imageViewer" src="" style="display: none;">
+                    <video id="videoPlayer" controls preload="auto" style="width: 100%; height: auto;"></video>
+                    <audio id="audioPlayer" controls preload="auto" style="width: 100%; height: auto;"></audio>
+                    <img id="imageViewer" src="" style="width: 100%; height: auto;">
                 </div>
                 <div class="playlist-container">
                     <h5>播放列表</h5>
@@ -4474,6 +4686,18 @@ input[type="range"]:focus {
         </div>
     </div>
 </div>
+
+<script>
+function showMediaContainer() {
+    document.querySelector('.media-container').style.display = 'block';
+    document.querySelector('.playlist-container').style.display = 'none';
+}
+
+function showPlaylistContainer() {
+    document.querySelector('.media-container').style.display = 'none';
+    document.querySelector('.playlist-container').style.display = 'block';
+}
+</script>
 
 <div class="modal fade" id="renameModal" tabindex="-1" aria-labelledby="renameModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-xl">
@@ -4873,68 +5097,35 @@ function togglePictureInPicture(videoElement) {
 </script>
 
 <script>
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.style.position = 'fixed';
-        notification.style.top = '10px';
-        notification.style.right = '10px';
-        notification.style.padding = '10px';
-        notification.style.backgroundColor = '#4CAF50';
-        notification.style.color = '#fff';
-        notification.style.borderRadius = '5px';
-        notification.style.zIndex = 9999;
-        notification.textContent = message;
+document.addEventListener('DOMContentLoaded', function () {
+    const isSmallScreen = window.innerWidth <= 768; 
 
-        document.body.appendChild(notification);
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
+    if (!isSmallScreen) {
         var el = document.getElementById('fileTableBody');
-
-        if (window.innerWidth <= 768) {
-            return; 
-        }
-
         var sortable = new Sortable(el, {
-            animation: 150,
+            handle: '.file-preview', 
+            animation: 150, 
             onEnd: function (evt) {
-                var order = sortable.toArray();
-                $.ajax({
-                    type: 'POST',
-                    url: 'order_handler.php', 
-                    data: { order: order },
-                    success: function (response) {
-                        showNotification('排序已成功保存!');
-                    },
-                    error: function (xhr, status, error) {
-                        showNotification('保存排序时出错: ' + error);
-                    }
-                });
-            },
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: 'order_handler.php', 
-            success: function (response) {
-                var savedOrder = JSON.parse(response);
-                var fileTableBody = document.getElementById('fileTableBody');
-                var rows = Array.from(fileTableBody.children);
-                rows.sort(function(a, b) {
-                    return savedOrder.indexOf(a.id) - savedOrder.indexOf(b.id);
-                });
-                rows.forEach(function(row) {
-                    fileTableBody.appendChild(row);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error('加载排序时出错: ' + error);
+                updateFileOrder();
             }
         });
-    });
+    }
+
+    function updateFileOrder() {
+        const fileOrder = [];
+        
+        document.querySelectorAll('.file-preview').forEach(item => {
+            const fileName = item.querySelector('input').value; 
+            fileOrder.push(fileName);
+        });
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'order_handler.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('fileOrder=' + JSON.stringify(fileOrder));
+    }
+});
+
 </script>
 
 <script>
