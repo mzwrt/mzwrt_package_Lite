@@ -12,7 +12,7 @@ PKG_RELEASE=1
 
 PKG_SOURCE:=qBittorrent-release-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/qbittorrent/qBittorrent/tar.gz/release-$(PKG_VERSION)?
-PKG_HASH:=1c996194b3d28485b6e59525db7f3a0868785c27d4df304cf1c9f57176d4368a
+PKG_HASH:=6c1077e51be2189189c4a0ec99402ccc88a4f43d88d8dece721cbe508460dd4b
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/qBittorrent-release-$(PKG_VERSION)
 
