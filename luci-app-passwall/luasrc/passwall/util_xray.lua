@@ -138,9 +138,9 @@ function gen_outbound(flag, node, tag, proxy_table)
 			proxySettings = node.proxySettings or nil,
 			protocol = node.protocol,
 			mux = {
-				enabled = (node.mux == "1" or node.xmux == "1") and true or false,
-				concurrency = (node.mux == "1" and ((node.mux_concurrency) and tonumber(node.mux_concurrency) or 8)) or ((node.xmux == "1") and -1) or nil,
-				xudpConcurrency = (node.xmux == "1" and ((node.xudp_concurrency) and tonumber(node.xudp_concurrency) or 8)) or nil
+				enabled = (node.mux == "1") and true or false,
+				concurrency = (node.mux == "1" and ((node.mux_concurrency) and tonumber(node.mux_concurrency) or -1)) or nil,
+				xudpConcurrency = (node.mux == "1" and ((node.xudp_concurrency) and tonumber(node.xudp_concurrency) or 8)) or nil
 			} or nil,
 			-- 底层传输配置
 			streamSettings = (node.streamSettings or node.protocol == "vmess" or node.protocol == "vless" or node.protocol == "socks" or node.protocol == "shadowsocks" or node.protocol == "trojan") and {
@@ -210,10 +210,10 @@ function gen_outbound(flag, node, tag, proxy_table)
 					path = node.httpupgrade_path or "/",
 					host = node.httpupgrade_host
 				} or nil,
-				xhttpSettings = (node.transport == "xhttp" or node.transport == "splithttp") and {
+				xhttpSettings = (node.transport == "xhttp") and {
 					mode = node.xhttp_mode or "auto",
-					path = node.xhttp_path or node.splithttp_path or "/",
-					host = node.xhttp_host or node.splithttp_host,
+					path = node.xhttp_path or "/",
+					host = node.xhttp_host,
 					-- 如果包含 "extra" 节，取 "extra" 内的内容，否则直接赋值给 extra
 					extra = node.xhttp_extra and (function()
 						local success, parsed = pcall(jsonc.parse, node.xhttp_extra)
