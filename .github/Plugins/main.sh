@@ -159,7 +159,7 @@ git clone --depth 1 https://github.com/Carseason/openwrt-themedog && mv -n openw
 git clone --depth 1 https://github.com/Carseason/openwrt-app-actions Carseason && mv -n Carseason/applications/* ./;rm -rf Carseason
 git clone --depth 1 https://github.com/Akimio521/luci-app-gecoosac
 git clone --depth 1 https://github.com/shadowsocks/luci-app-shadowsocks
-git clone --depth 1 https://github.com/shadowsocks/openwrt-shadowsocks && mv -n openwrt-shadowsocks shadowsocks-libev
+#git clone --depth 1 https://github.com/shadowsocks/openwrt-shadowsocks && mv -n openwrt-shadowsocks shadowsocks-libev
 git clone --depth 1 https://github.com/4IceG/luci-app-irqbalance luciappirqbalance && mv -n luciappirqbalance/luci-app-irqbalance ./ ;rm -rf luciappirqbalance
 git clone --depth 1 https://github.com/mchome/openwrt-dogcom dogcom
 # git clone --depth 1 https://github.com/lisaac/luci-app-diskman && mv -n luci-app-diskman luci-app-diskman1 && mv -n luci-app-diskman1/applications/luci-app-diskman ./ && rm -rf luci-app-diskman1
