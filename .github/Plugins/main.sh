@@ -162,7 +162,7 @@ git clone --depth 1 https://github.com/shadowsocks/luci-app-shadowsocks
 git clone --depth 1 https://github.com/shadowsocks/openwrt-shadowsocks && mv -n openwrt-shadowsocks shadowsocks-libev
 git clone --depth 1 https://github.com/4IceG/luci-app-irqbalance luciappirqbalance && mv -n luciappirqbalance/luci-app-irqbalance ./ ;rm -rf luciappirqbalance
 git clone --depth 1 https://github.com/mchome/openwrt-dogcom dogcom
-git clone --depth 1 https://github.com/lisaac/luci-app-diskman && mv -n luci-app-diskman luci-app-diskman1 && mv -n luci-app-diskman1/applications/luci-app-diskman ./ && rm -rf luci-app-diskman1
+# git clone --depth 1 https://github.com/lisaac/luci-app-diskman && mv -n luci-app-diskman luci-app-diskman1 && mv -n luci-app-diskman1/applications/luci-app-diskman ./ && rm -rf luci-app-diskman1
 
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-ipkg
 svn export https://github.com/x-wrt/packages/trunk/net/nft-qos
