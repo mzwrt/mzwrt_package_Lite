@@ -220,6 +220,7 @@ sed -i \
 -e 's/+docker /+docker +dockerd /g' \
 */Makefile
 
+sed -i 's|Archt="*.*"|Archt="$(uname -m)"|g' "luci-app-adguardhome/root/usr/share/AdGuardHome/update_core.sh"
 sed -i 's/PKG_VERSION:=20240302/PKG_VERSION:=20240223/g; s/PKG_RELEASE:=$(AUTORELESE)/PKG_RELEASE:=1/g' webd/Makefile
 sed -i 's/luci-lib-ipkg/luci-base/g' luci-app-store/Makefile
 sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
