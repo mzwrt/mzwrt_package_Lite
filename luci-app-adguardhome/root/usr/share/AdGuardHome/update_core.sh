@@ -57,7 +57,7 @@ check_latest_version(){
 }
 
 doupx(){
-	Archt="$(opkg info kernel | grep Architecture | awk -F "[ _]" '{print($2)}')"
+	Archt="$(uname -m)"
 	case $Archt in
 	"i386")
 		Arch="i386"
@@ -122,7 +122,7 @@ doupdate_core(){
 	echo -e "Updating core..."
 	mkdir -p "/tmp/AdGuardHomeupdate"
 	rm -rf /tmp/AdGuardHomeupdate/* >/dev/null 2>&1
-	Archt="$(opkg info kernel | grep Architecture | awk -F "[ _]" '{print($2)}')"
+	Archt="$(uname -m)"
 	case $Archt in
 	"i386")
 		Arch="386"

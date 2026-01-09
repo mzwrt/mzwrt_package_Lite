@@ -1,0 +1,12 @@
+--- webd/Makefile
++++ webd/Makefile
+@@ -75,6 +75,9 @@ ifeq ($(BOARD),rockchip)
+ 	endif
+ 	ifeq ($(BOARD),rockchip)
+ 		TARGET_BOARD:=musl.rockchip-armv8
+ 	endif
++	ifeq ($(BOARD),mediatek)
++		TARGET_BOARD:=musl.rockchip-armv8
++	endif
+ endif
+ 
