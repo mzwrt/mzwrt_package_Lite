@@ -325,7 +325,7 @@ function autoCleanInvalidSubInfo($subscriptions) {
 }
 
 function isValidSubscriptionContent($content) {
-    $keywords = ['ss', 'shadowsocks', 'vmess', 'vless', 'trojan', 'hysteria2', 'socks5', 'http'];
+    $keywords = ['ss', 'anytls', 'vmess', 'vless', 'trojan', 'hysteria2', 'socks5', 'http'];
     foreach ($keywords as $keyword) {
         if (stripos($content, $keyword) !== false) {
             return true;
@@ -865,13 +865,13 @@ $(document).ready(function() {
                 <li class="nav-item">
                     <a class="nav-link <?= $current == 'singbox.php' ? 'active' : '' ?>" href="./singbox.php"><i class="bi bi-shop"></i> <span data-translate="template_i">Template I</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a class="nav-link <?= $current == 'subscription.php' ? 'active' : '' ?>" href="./subscription.php"><i class="bi bi-bank"></i> <span data-translate="template_ii">Template II</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= $current == 'mihomo.php' ? 'active' : '' ?>" href="./mihomo.php"><i class="bi bi-building"></i> <span data-translate="template_iii">Template III</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a class="nav-link <?= $current == 'netmon.php' ? 'active' : '' ?>" href="./netmon.php"><i class="bi bi-activity"></i> <span data-translate="traffic_monitor">Traffic Monitor</span></a>
                 </li>
                 <li class="nav-item">
@@ -1139,7 +1139,7 @@ $(document).ready(function() {
       $size = file_exists($filePath) ? formatSize(filesize($filePath)) : ($translations['fileNotExist'] ?? 'Not Exist');
       $modified = file_exists($filePath) ? date('Y-m-d H:i:s', filemtime($filePath)) : '-';
 
-      $validProtocols = '/^(ss|shadowsocks|vmess|vless|trojan|hysteria2|socks5|http)$/i';
+      $validProtocols = '/^(ss|shadowsocks|anytls|vmess|vless|trojan|hysteria2|socks5|http)$/i';
       $nodeCount = 0;
 
       if (file_exists($filePath)) {
@@ -1215,12 +1215,12 @@ $(document).ready(function() {
                       }
                   }
               }
-              elseif (preg_match('/^(ss|vmess|vless|trojan|hysteria2|socks5|http):\/\//im', $content)) {
+              elseif (preg_match('/^(ss|shadowsocks|anytls|vmess|vless|trojan|hysteria2|socks5|http):\/\//im', $content)) {
                   $lines = preg_split("/\r?\n/", $content);
                   foreach ($lines as $line) {
                       $line = trim($line);
                       if ($line === '' || str_starts_with($line, '#')) continue;
-                      if (preg_match('/^(ss|vmess|vless|trojan|hysteria2|socks5|http):\/\//i', $line)) {
+                      if (preg_match('/^(ss|shadowsocks|anytls|vmess|vless|trojan|hysteria2|socks5|http):\/\//i', $line)) {
                           $nodeCount++;
                       }
                   }
