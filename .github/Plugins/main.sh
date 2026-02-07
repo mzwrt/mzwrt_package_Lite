@@ -70,7 +70,7 @@ git clone --depth 1 https://github.com/jerrykuku/luci-app-go-aliyundrive-webdav
 git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb
 git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced
 git clone --depth 1 https://github.com/sirpdboy/luci-theme-opentopd
-git clone --depth 1 https://github.com/sirpdboy/luci-app-poweroffdevice
+git clone --depth 1 https://github.com/sirpdboy/luci-app-poweroffdevice poweroffdevice && mv -n poweroffdevice/luci-app-poweroffdevice ./ ; rm -rf poweroffdevice
 git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset
 git clone --depth 1 https://github.com/sirpdboy/luci-app-lucky lucik && mv -n lucik/luci-app-lucky ./ ; rm -rf lucik
 git clone --depth 1 https://github.com/sirpdboy/luci-app-partexp
