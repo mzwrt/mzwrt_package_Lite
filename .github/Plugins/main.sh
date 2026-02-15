@@ -135,6 +135,7 @@ git clone --depth 1 https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwr
 git clone --depth 1 https://github.com/kiddin9/kwrt-packages && mv -n kwrt-packages/luci-app-bypass kwrt-packages/luci-app-fileassistant ./ ; rm -rf kwrt-packages
 git clone --depth 1 https://github.com/immortalwrt/packages && mv -n packages/net/{cdnspeedtest,dae,daed,vsftpd,transmission} ./ ; rm -rf packages
 git clone --depth 1 https://github.com/immortalwrt/luci && mv -n luci/applications/{luci-app-daed,luci-app-filebrowser,luci-app-gost,luci-app-usb-printer,luci-app-vlmcsd,luci-app-transmission} ./ ; rm -rf luci
+git clone --depth 1 https://github.com/cokebar/openwrt-vlmcsd vlmcsd
 git clone --depth 1 https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest cloudflarespeedtest && mv -n cloudflarespeedtest/applications/* ./;rm -rf cloudflarespeedtest
 git clone --depth 1 https://github.com/doushang/luci-app-shortcutmenu luci-shortcutmenu && mv -n luci-shortcutmenu/luci-app-shortcutmenu ./ ; rm -rf luci-shortcutmenu
 git clone --depth 1 https://github.com/gSpotx2f/luci-app-internet-detector
@@ -190,7 +191,7 @@ net/ariang admin/netdata net/transmission-web-control net/rp-pppoe net/tailscale
 #package/network/services/dnsmasq package/libs/openssl
 
 git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/sub-web net/dnsproxy net/haproxy net/cdnspeedtest \
-net/subconverter net/ngrokc net/oscam net/scutclient net/gowebdav net/udp2raw \
+net/subconverter net/ngrokc net/oscam net/scutclient net/udp2raw \
 admin/btop libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 libs/libtorrent-rasterbar \
 libs/libdouble-conversion libs/qt6base libs/jpcre2 libs/alac \
 utils/cpulimit devel/gn
@@ -202,7 +203,9 @@ git_sparse_clone master "https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng"
 git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-macvlan luci-app-3ginfo-lite luci-app-fakemesh urllogger
 git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immortal" package/utils/mhz package/libs/libnftnl package/firmware/wireless-regdb
 
-git_sparse_clone master "https://github.com/xiangfeidexiaohuo/extra-ipk" "extra-ipk" op-webdav/luci-app-gowebdav op-webdav/gowebdav \
+git_sparse_clone master "https://github.com/xiangfeidexiaohuo/extra-ipk" "extra-ipk" op-webdav/luci-app-gowebdav op-webdav/gowebdav
+
+git_sparse_clone master "https://github.com/Hyy2001X/AutoBuild-Packages" "AutoBuild-Packages" AutoBuild-Packages/webd
 
 #mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
 rm -rf openssl
