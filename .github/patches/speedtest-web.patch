@@ -1,21 +1,27 @@
---- a/speedtest-web/Makefile
-+++ b/speedtest-web/Makefile
-@@ -41,10 +41,14 @@
--config SPEEDTEST_WEB_COMPRESS_UPX
--	bool "Compress executable files with UPX"
+--- a/speedtest-web/Makefile	2024-11-15 12:08:19.689327222 +0800
++++ b/speedtest-web/Makefile	2024-11-15 12:17:14.453846031 +0800
+@@ -38,12 +38,12 @@
+ 
+ config SPEEDTEST_WEB_COMPRESS_UPX
+ 	bool "Compress executable files with UPX"
 -	default y
--endef
-+config SPEEDTEST_WEB_COMPRESS_UPX
-+	bool "Compress executable files with UPX"
 +	default n
-+endef
-@@ -61,9 +65,6 @@
+ endef
+ 
+ ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_GOPROXY),y)
+ 	export GO111MODULE=on
+-	export GOPROXY=https://goproxy.baidu.com
++	export GOPROXY=
+ endif
+ 
+ define Package/speedtest-web
+@@ -60,9 +60,6 @@
+ 
  define Build/Compile
  	$(call GoPackage/Build/Compile)
 -ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)
 -	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest
 -endif
  endef
-@@ -46,7 +50,9 @@
--	export GOPROXY=https://goproxy.baidu.com
-+	export GOPROXY=
+ 
+ define Package/speedtest-web/install
