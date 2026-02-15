@@ -88,7 +88,6 @@ git clone --depth 1 https://github.com/hubbylei/luci-app-clash
 git clone --depth 1 https://github.com/destan19/OpenAppFilter && mvdir OpenAppFilter
 git clone --depth 1 https://github.com/lvqier/luci-app-dnsmasq-ipset
 git clone --depth 1 https://github.com/walkingsky/luci-wifidog luci-app-wifidog
-git clone --depth 1 https://github.com/CCnut/feed-netkeeper && mvdir feed-netkeeper
 git clone --depth 1 https://github.com/sensec/luci-app-udp2raw
 git clone --depth 1 https://github.com/LGA1150/openwrt-sysuh3c && mvdir openwrt-sysuh3c
 git clone --depth 1 https://github.com/Hyy2001X/AutoBuild-Packages && rm -rf AutoBuild-Packages/luci-app-adguardhome && mvdir AutoBuild-Packages
