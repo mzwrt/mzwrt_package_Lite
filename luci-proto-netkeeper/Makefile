@@ -1,6 +1,7 @@
-# Copyright (C) 2019 CCnut
 #
-# This is free software, licensed under the GNU General Public License v2.
+# Copyright (C) 2008-2014 The LuCI Team <luci@lists.subsignal.org>
+#
+# This is free software, licensed under the Apache License, Version 2.0 .
 #
 
 include $(TOPDIR)/rules.mk
@@ -8,8 +9,8 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Support for Netkeeper
 LUCI_DEPENDS:=+netkeeper
 LUCI_PKGARCH:=all
-PKG_VERSION:=1.3
-PKG_RELEASE:=3
+PKG_VERSION:=1.2
+PKG_RELEASE:=1
 
 include $(TOPDIR)/feeds/luci/luci.mk
 

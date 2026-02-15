@@ -1,12 +1,14 @@
-# Copyright (C) 2019 CCnut
 #
-# This is free software, licensed under the GNU General Public License v2.
+# Copyright (C) 2008-2014 The LuCI Team <luci@lists.subsignal.org>
+#
+# This is free software, licensed under the Apache License, Version 2.0 .
 #
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI Support for Netkeeper-Interception
-LUCI_DEPENDS:=+luci-compat +netkeeper-interception +luci-proto-netkeeper
+PKG_NAME:=luci-app-Netkeeper-Interception
+LUCI_TITLE:=LuCI for Netkeeper-Interception
+LUCI_DEPENDS:=+netkeeper-interception +luci-proto-netkeeper
 LUCI_PKGARCH:=all
 PKG_VERSION:=0.1
 PKG_RELEASE:=1
