@@ -237,10 +237,17 @@ sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' transmission-web-control/Makef
 find . -type f -name "update.sh" -exec rm -f {} \;
 rm -rf adguardhome/patches
 
-sed -i '/CONFIG_SPEEDTEST_WEB_COMPRESS_UPX/d' 'speedtest-web/Makefile'
-sed -i '/config SPEEDTEST_WEB_COMPRESS_UPX/,/endef/d' 'speedtest-web/Makefile'
-sed -i '/ifeq (\$(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)/,/endif/d' 'speedtest-web/Makefile'
-sed -i '/STAGING_DIR_HOST.*upx/d' 'speedtest-web/Makefile'
+# 1️⃣ 删除 UPX 配置声明行
+sed -i '/CONFIG_SPEEDTEST_WEB_COMPRESS_UPX/d' feeds/mzwrt_package/speedtest-web/Makefile
+
+# 2️⃣ 删除 config 菜单块（config ... endef）
+sed -i '/config SPEEDTEST_WEB_COMPRESS_UPX/,/endef/d' feeds/mzwrt_package/speedtest-web/Makefile
+
+# 3️⃣ 删除 Build/Compile 条件块 (ifeq ... endif)
+sed -i '/ifeq[[:space:]]*(\$(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)/,/endif/d' feeds/mzwrt_package/speedtest-web/Makefile
+
+# 4️⃣ 删除残留的 UPX 命令行
+sed -i '/STAGING_DIR_HOST.*upx/d' feeds/mzwrt_package/speedtest-web/Makefile
 
 
 exit 0
