@@ -4,7 +4,6 @@
 # https://github.com/mzwrt
 #=================================================
 
-
 function git_clone() {
   git clone --depth 1 $1 $2 || true
  }
