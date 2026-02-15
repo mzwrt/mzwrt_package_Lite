@@ -20,13 +20,7 @@
 
  ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_GOPROXY),y)
 
-@@ -61,6 +66,9 @@ define Build/Compile
-
- define Build/Compile
- 	$(call GoPackage/Build/Compile)
+@@ -61,9 +61,6 @@ define Build/Compile
 -ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)
 -	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest
 -endif
- endef
-
- define Package/speedtest-web/install
