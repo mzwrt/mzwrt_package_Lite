@@ -239,4 +239,5 @@ sed -i '/entry({"admin", "nas"}, firstchild(), "NAS", 45).dependent = false/d; s
 sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' 'transmission-web-control/Makefile'
 find . -type f -name "update.sh" -exec rm -f {} \;
 rm -rf adguardhome/patches
+
 exit 0
