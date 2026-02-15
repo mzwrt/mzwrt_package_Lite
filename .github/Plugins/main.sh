@@ -95,7 +95,6 @@ git clone --depth 1 https://github.com/Hyy2001X/AutoBuild-Packages && rm -rf Aut
 git clone --depth 1 https://github.com/lisaac/luci-app-dockerman dockerman && mv -n dockerman/applications/* ./; rm -rf dockerman
 git clone --depth 1 https://github.com/gdck/luci-app-cupsd cupsd1 && mv -n cupsd1/luci-app-cupsd cupsd1/cups/cups ./ ; rm -rf cupsd1
 git clone --depth 1 https://github.com/kenzok8/wall && mv -n wall/* ./ ; rm -rf wall
-git clone --depth 1 https://github.com/sirpdboy/sirpdboy-package && mv -n sirpdboy-package/luci-app-dockerman ./ ; rm -rf sirpdboy-package
 git clone --depth 1 https://github.com/sundaqiang/openwrt-packages && mv -n openwrt-packages/luci-* ./; rm -rf openwrt-packages
 git clone --depth 1 https://github.com/zxlhhyccc/luci-app-v2raya
 git clone --depth 1 https://github.com/kenzok8/luci-theme-ifit ifit && mv -n ifit/luci-theme-ifit ./;rm -rf ifit
@@ -129,8 +128,8 @@ git clone --depth 1 https://github.com/kenzok8/litte && mv -n litte/luci-theme-a
 git clone --depth 1 https://github.com/fw876/helloworld && mv -n helloworld/luci-app-ssr-plus ./ ; rm -rf helloworld
 #git clone --depth 1 https://github.com/QiuSimons/openwrt-mos && mv -n openwrt-mos/luci-app-mosdns ./ ; rm -rf openwrt-mos
 git clone --depth 1 https://github.com/sbwml/luci-app-mosdns openwrt-mos && mv -n openwrt-mos/{*mosdns,v2dat} ./; rm -rf openwrt-mos
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2 passwall2 && mv -n passwall2/luci-app-passwall2 ./;rm -rf passwall2
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall passwall1 && mv -n passwall1/luci-app-passwall  ./; rm -rf passwall1
+git clone --depth 1 https://github.com/Openwrt-Passwall/openwrt-passwall2 passwall2 && mv -n passwall2/luci-app-passwall2 ./;rm -rf passwall2
+git clone --depth 1 https://github.com/Openwrt-Passwall/openwrt-passwall passwall1 && mv -n passwall1/luci-app-passwall  ./; rm -rf passwall1
 git clone --depth 1 https://github.com/SSSSSimon/tencentcloud-openwrt-plugin-ddns && mv -n tencentcloud-openwrt-plugin-ddns/tencentcloud_ddns ./luci-app-tencentddns; rm -rf tencentcloud-openwrt-plugin-ddns
 git clone --depth 1 https://github.com/Tencent-Cloud-Plugins/tencentcloud-openwrt-plugin-cos && mv -n tencentcloud-openwrt-plugin-cos/tencentcloud_cos ./luci-app-tencentcloud-cos; rm -rf tencentcloud-openwrt-plugin-cos
 git clone --depth 1 https://github.com/kiddin9/kwrt-packages && mv -n kwrt-packages/luci-app-bypass kwrt-packages/luci-app-fileassistant ./ ; rm -rf kwrt-packages
@@ -158,6 +157,7 @@ git clone --depth 1 https://github.com/shadowsocks/luci-app-shadowsocks
 #git clone --depth 1 https://github.com/shadowsocks/openwrt-shadowsocks && mv -n openwrt-shadowsocks shadowsocks-libev
 git clone --depth 1 https://github.com/4IceG/luci-app-irqbalance luciappirqbalance && mv -n luciappirqbalance/luci-app-irqbalance ./ ;rm -rf luciappirqbalance
 git clone --depth 1 https://github.com/mchome/openwrt-dogcom dogcom
+git clone --depth 1 https://github.com/chenmozhijin/luci-app-socat appsocat && mv -n appsocat/luci-app-socat ./ ;rm -rf appsocat
 # git clone --depth 1 https://github.com/lisaac/luci-app-diskman && mv -n luci-app-diskman luci-app-diskman1 && mv -n luci-app-diskman1/applications/luci-app-diskman ./ && rm -rf luci-app-diskman1
 
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-ipkg
@@ -190,9 +190,9 @@ net/ariang admin/netdata net/transmission-web-control net/rp-pppoe net/tailscale
 #package/network/services/dnsmasq package/libs/openssl
 
 git_sparse_clone master "https://github.com/immortalwrt/packages" "immpack" net/sub-web net/dnsproxy net/haproxy net/cdnspeedtest \
-net/uugamebooster net/subconverter net/ngrokc net/oscam net/njitclient net/scutclient net/gowebdav net/udp2raw \
+net/subconverter net/ngrokc net/oscam net/scutclient net/gowebdav net/udp2raw \
 admin/btop libs/wxbase libs/rapidjson libs/libcron libs/quickjspp libs/toml11 libs/libtorrent-rasterbar \
-libs/libdouble-conversion libs/qt6base libs/cxxopts libs/jpcre2 libs/alac \
+libs/libdouble-conversion libs/qt6base libs/jpcre2 libs/alac \
 utils/cpulimit devel/gn
 
 git_sparse_clone develop "https://github.com/Ysurac/openmptcprouter-feeds" "enmptcp" luci-app-snmpd \
@@ -202,7 +202,7 @@ git_sparse_clone master "https://github.com/xiaoqingfengATGH/feeds-xiaoqingfeng"
 git_sparse_clone master "https://github.com/x-wrt/com.x-wrt" "x-wrt" natflow lua-ipops luci-app-macvlan luci-app-3ginfo-lite luci-app-fakemesh urllogger
 git_sparse_clone master "https://github.com/immortalwrt/immortalwrt" "immortal" package/utils/mhz package/libs/libnftnl package/firmware/wireless-regdb
 
-git_sparse_clone master "https://github.com/sbwml/openwrt_pkgs" "openwrt_pkgs" luci-app-gowebdav luci-app-ota luci-app-socat \
+git_sparse_clone master "https://github.com/xiangfeidexiaohuo/extra-ipk" "extra-ipk" op-webdav/luci-app-gowebdav op-webdav/gowebdav \
 
 #mv -n openwrt-passwall/* ./ ; rm -Rf openwrt-passwall
 rm -rf openssl
