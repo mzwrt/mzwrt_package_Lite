@@ -38,12 +38,12 @@ config SPEEDTEST_WEB_COMPRESS_GOPROXY
 
 config SPEEDTEST_WEB_COMPRESS_UPX
 	bool "Compress executable files with UPX"
-	default y
+	default n
 endef
 
 ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_GOPROXY),y)
 	export GO111MODULE=on
-	export GOPROXY=https://goproxy.baidu.com
+	export GOPROXY=
 endif
 
 define Package/speedtest-web
@@ -60,9 +60,6 @@ endef
 
 define Build/Compile
 	$(call GoPackage/Build/Compile)
-ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest
-endif
 endef
 
 define Package/speedtest-web/install
