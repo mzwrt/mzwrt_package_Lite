@@ -18,7 +18,6 @@ PKG_LICENSE_FILES:=LICENSE
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_SPEEDTEST_WEB_COMPRESS_GOPROXY \
-	CONFIG_SPEEDTEST_WEB_COMPRESS_UPX
 
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
@@ -36,10 +35,6 @@ config SPEEDTEST_WEB_COMPRESS_GOPROXY
 	bool "Compiling with GOPROXY proxy"
 	default n
 
-config SPEEDTEST_WEB_COMPRESS_UPX
-	bool "Compress executable files with UPX"
-	default y
-endef
 
 ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_GOPROXY),y)
 	export GO111MODULE=on
@@ -60,8 +55,6 @@ endef
 
 define Build/Compile
 	$(call GoPackage/Build/Compile)
-ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest
 endif
 endef
 
