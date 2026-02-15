@@ -236,18 +236,4 @@ sed -i '/entry({"admin", "nas"}, firstchild(), "NAS", 45).dependent = false/d; s
 sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' transmission-web-control/Makefile
 find . -type f -name "update.sh" -exec rm -f {} \;
 rm -rf adguardhome/patches
-
-# 1️⃣ 删除 UPX 配置声明行
-sed -i '/CONFIG_SPEEDTEST_WEB_COMPRESS_UPX/d' feeds/mzwrt_package/speedtest-web/Makefile
-
-# 2️⃣ 删除 config 菜单块（config ... endef）
-sed -i '/config SPEEDTEST_WEB_COMPRESS_UPX/,/endef/d' feeds/mzwrt_package/speedtest-web/Makefile
-
-# 3️⃣ 删除 Build/Compile 条件块 (ifeq ... endif)
-sed -i '/ifeq[[:space:]]*(\$(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)/,/endif/d' feeds/mzwrt_package/speedtest-web/Makefile
-
-# 4️⃣ 删除残留的 UPX 命令行
-sed -i '/STAGING_DIR_HOST.*upx/d' feeds/mzwrt_package/speedtest-web/Makefile
-
-
 exit 0
