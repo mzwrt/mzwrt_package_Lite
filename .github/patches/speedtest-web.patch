@@ -1,14 +1,11 @@
 --- a/speedtest-web/Makefile	2024-11-15 12:08:19.689327222 +0800
 +++ b/speedtest-web/Makefile	2026-02-15 00:00:00.000000000 +0800
-@@ -38,10 +38,14 @@
--config SPEEDTEST_WEB_COMPRESS_UPX
--	bool "Compress executable files with UPX"
+@@ -39,10 +42,14 @@
+ config SPEEDTEST_WEB_COMPRESS_UPX
+ 	bool "Compress executable files with UPX"
 -	default y
--endef
-+config SPEEDTEST_WEB_COMPRESS_UPX
-+	bool "Compress executable files with UPX"
 +	default n
-+endef
+ endef
 @@ -43,7 +47,9 @@
  ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_GOPROXY),y)
 -	export GO111MODULE=on
@@ -16,10 +13,10 @@
 +	export GO111MODULE=on
 +	export GOPROXY=
  endif
-@@ -60,9 +66,6 @@
+@@ -62,9 +66,6 @@
  define Build/Compile
  	$(call GoPackage/Build/Compile)
-- ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)
+-ifeq ($(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)
 -	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest
-- endif
+-endif
  endef
