@@ -236,4 +236,11 @@ sed -i '/entry({"admin", "nas"}, firstchild(), "NAS", 45).dependent = false/d; s
 sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' transmission-web-control/Makefile
 find . -type f -name "update.sh" -exec rm -f {} \;
 rm -rf adguardhome/patches
+
+sed -i '/CONFIG_SPEEDTEST_WEB_COMPRESS_UPX/d' 'speedtest-web/Makefile'
+sed -i '/config SPEEDTEST_WEB_COMPRESS_UPX/,/endef/d' 'speedtest-web/Makefile'
+sed -i '/ifeq (\$(CONFIG_SPEEDTEST_WEB_COMPRESS_UPX),y)/,/endif/d' 'speedtest-web/Makefile'
+sed -i '/STAGING_DIR_HOST.*upx/d' 'speedtest-web/Makefile'
+
+
 exit 0
