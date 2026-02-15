@@ -146,7 +146,7 @@ git clone --depth 1 https://github.com/sbwml/luci-app-airconnect airconnect1 && 
 git clone --depth 1 https://github.com/sirpdboy/luci-theme-kucat -b js --depth 1
 git clone --depth 1 https://github.com/blueberry-pie-11/luci-app-natmap
 git clone --depth 1 https://github.com/QiuSimons/luci-app-daed-next daed1 && mvdir daed1
-git clone --depth 1 https://github.com/morytyann/OpenWrt-mihomo OpenWrt-mihomo && mv -n OpenWrt-mihomo/*mihomo ./ ; rm -rf OpenWrt-mihomo
+git clone --depth 1 https://github.com/nikkinikki-org/OpenWrt-nikki OpenWrt-nikki && mv -n OpenWrt-nikki/*nikki ./ ; rm -rf OpenWrt-nikki
 git clone --depth 1 https://github.com/muink/openwrt-fchomo openwrt-fchomo && mv -n openwrt-fchomo/*homo ./ ; rm -rf openwrt-fchomo
 git clone --depth 1 https://github.com/lucikap/luci-app-brukamen && mv -n luci-app-brukamen/{luci*,mentohust,iii/*} ./;rm -rf luci-app-brukamen luci-app-autoshell_*.ipk
 git clone --depth 1 -b nekobox https://github.com/Thaolga/openwrt-nekobox && mv openwrt-nekobox/luci-app-nekobox ./;rm -rf openwrt-nekobox
@@ -219,21 +219,21 @@ sed -i \
 
 sed -i 's|Archt="*.*"|Archt="$(uname -m)"|g' "luci-app-adguardhome/root/usr/share/AdGuardHome/update_core.sh"
 sed -i 's/PKG_VERSION:=20240302/PKG_VERSION:=20240223/g; s/PKG_RELEASE:=$(AUTORELESE)/PKG_RELEASE:=1/g' webd/Makefile
-sed -i 's/luci-lib-ipkg/luci-base/g' luci-app-store/Makefile
-sed -i "/minisign:minisign/d" luci-app-dnscrypt-proxy2/Makefile
-sed -i 's/+dockerd/+dockerd +cgroupfs-mount/' luci-app-docker*/Makefile
-sed -i '$i /etc/init.d/dockerd restart &' luci-app-docker*/root/etc/uci-defaults/*
-sed -i 's/+libcap /+libcap +libcap-bin /' luci-app-openclash/Makefile
-sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' luci-app-argon-config/Makefile
-sed -i 's/\(+luci-compat\)/\1 +luci-theme-design/' luci-app-design-config/Makefile
-sed -i 's/+vsftpd-alt$/+vsftpd/' luci-app-tencentcloud-cos/Makefile
-sed -i 's/ +uhttpd-mod-ubus//' luci-app-packet-capture/Makefile
-sed -i 's/	ip.neighbors/	luci.ip.neighbors/' luci-app-wifidog/luasrc/model/cbi/wifidog/wifidog_cfg.lua
-#sed -i -e 's/nas/services/g' -e 's/NAS/Services/g' $(grep -rl 'nas\|NAS' luci-app-fileassistant)
+sed -i 's/luci-lib-ipkg/luci-base/g' 'luci-app-store/Makefile'
+sed -i "/minisign:minisign/d" 'luci-app-dnscrypt-proxy2/Makefile'
+sed -i 's/+dockerd/+dockerd +cgroupfs-mount/' 'luci-app-docker*/Makefile'
+sed -i '$i /etc/init.d/dockerd restart &' 'luci-app-docker*/root/etc/uci-defaults/*'
+sed -i 's/+libcap /+libcap +libcap-bin /' 'luci-app-openclash/Makefile'
+sed -i 's/\(+luci-compat\)/\1 +luci-theme-argon/' 'luci-app-argon-config/Makefile'
+sed -i 's/\(+luci-compat\)/\1 +luci-theme-design/' 'luci-app-design-config/Makefile'
+sed -i 's/+vsftpd-alt$/+vsftpd/' 'luci-app-tencentcloud-cos/Makefile'
+sed -i 's/ +uhttpd-mod-ubus//' 'luci-app-packet-capture/Makefile'
+sed -i 's/	ip.neighbors/	luci.ip.neighbors/' 'luci-app-wifidog/luasrc/model/cbi/wifidog/wifidog_cfg.lua'
+#sed -i -e 's/nas/services/g' -e 's/NAS/Services/g' $(grep -rl 'nas\|NAS' 'luci-app-fileassistant)'
 #find . -type f -name Makefile -exec sed -i 's/PKG_BUILD_FLAGS:=no-mips16/PKG_USE_MIPS16:=0/g' {} +
-sed -i '/entry({"admin", "nas"}, firstchild(), "NAS", 45).dependent = false/d; s/entry({"admin", "network", "eqos"}, cbi("eqos"), _("EQoS"))/entry({"admin", "network", "eqos"}, cbi("eqos"), _("EQoS"), 121).dependent = true/' luci-app-eqos/luasrc/controller/eqos.lua
-#sed -i '65,73d' adguardhome/Makefile
-sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' transmission-web-control/Makefile
+sed -i '/entry({"admin", "nas"}, firstchild(), "NAS", 45).dependent = false/d; s/entry({"admin", "network", "eqos"}, cbi("eqos"), _("EQoS"))/entry({"admin", "network", "eqos"}, cbi("eqos"), _("EQoS"), 121).dependent = true/' 'luci-app-eqos/luasrc/controller/eqos.lua'
+#sed -i '65,73d' 'adguardhome/Makefile'
+sed -i 's/PKG_SOURCE_DATE:=2/PKG_SOURCE_DATE:=3/' 'transmission-web-control/Makefile'
 find . -type f -name "update.sh" -exec rm -f {} \;
 rm -rf adguardhome/patches
 
